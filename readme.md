@@ -5,7 +5,6 @@
 * Identify state in a React app
 * Explain the properties and utility of components
 * Distinguish container and presentational components
-* Use jQuery to make AJAX calls in a React app
 * Describe ways to add styles to a React app
 
 ## Framing (15 minutes / 0:15)
@@ -397,11 +396,11 @@ The last step is passing callbacks through props to presentational components to
 We will need three functions defined on the `SearchContainer` component to provide necessary behavior to `Search` and `Results`...
 
 1. `handleSearchInput` for managing changes to the input field
-2. `onSubmitQuery` for switching `hasSearched` so that `Results` are displayed and making an AJAX call for searched TV shows
+2. `onSubmitQuery` for switching `hasSearched` so that `Results` are displayed and preparing for a future AJAX call for searched TV shows
 
 ## We Do: `onSubmitQuery` (15 minutes / 2:20)
 
-Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for later.
+Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for another lesson.
 
 #### In `SearchContainer.js`...
 
