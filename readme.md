@@ -5,7 +5,6 @@
 * Identify state in a React app
 * Explain the properties and utility of components
 * Distinguish container and presentational components
-* Use jQuery to make AJAX calls in a React app
 * Describe ways to add styles to a React app
 
 ## Framing (15 minutes / 0:15)
@@ -75,14 +74,14 @@ So we've talked about `.state` at a more granular level. But now we're asking wh
 
 So what is this "state"? The organization and flow of data in an application at any point in time.
 
-Let's think of states in terms of a game: Pokémon.
+Let's think of states in terms of a game: Online Poker.
 
 <details>
   <summary><strong>Q: What can you say about the player when a new game starts?</strong></summary>
 
   <br>
 
-  > 0 Pokemon. We're stuck in Pallet Town (City #1). Professor Oak is around.
+  > 0 cards in your hand. Some chips/credits in your pile.
 
 </details>
 
@@ -93,7 +92,7 @@ Let's think of states in terms of a game: Pokémon.
 
   <br>
 
-  > 150 Pokemon. 8 gym badges.
+  > Cards in your hand. Your chip count changed (depending if you won or lost)
 
 </details>
 
@@ -120,7 +119,7 @@ Let's look at the process of a rendering a React Component...
 
 ## Exercise: React TVMaze
 
-For this exercise, we are going to build a React app from scratch that will serve as a movie browser application, allowing users to enter a search term, and view results of tv shows via the TVMaze API.
+For this exercise, we are going to build a React app from scratch that will serve as a tv browser application, allowing users to enter a search term, and view results of tv shows via the TVMaze API.
 
 The desired outcome is for you to take a look at the solution and from there devise your own implementation. We have also included a step-by-step walkthrough of how to build out the demoed solution below.
 
@@ -318,7 +317,7 @@ Create these three components in the following order...
 
 ## [Identify the Minimal Representation of UI State](https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state) (5 minutes / 1:20)
 
-At the moment all of our data is being passed through our app as props. We know, however, that we will have data that changes as a user interacts with the app. That information needs to leave in our application's state.
+At the moment all of our data is being passed through our app as props. We know, however, that we will have data that changes as a user interacts with the app. That information needs to live in our application's state.
 
 <details>
   <summary><strong>What information needs to live in state? This may include a value(s) that we have not yet included in our code...</strong></summary>
@@ -397,11 +396,11 @@ The last step is passing callbacks through props to presentational components to
 We will need three functions defined on the `SearchContainer` component to provide necessary behavior to `Search` and `Results`...
 
 1. `handleSearchInput` for managing changes to the input field
-2. `onSubmitQuery` for switching `hasSearched` so that `Results` are displayed and making an AJAX call for searched TV shows
+2. `onSubmitQuery` for switching `hasSearched` so that `Results` are displayed and preparing for a future AJAX call for searched TV shows
 
 ## We Do: `onSubmitQuery` (15 minutes / 2:20)
 
-Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for later.
+Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for another lesson.
 
 #### In `SearchContainer.js`...
 
