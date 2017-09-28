@@ -1,87 +1,68 @@
-# React: Practice, Paradigms and Principles
+# State and Data-flow
 
 ## Learning Objectives
-
+* Pass in data to a React component via `props`.
+* Nest React components.
+* Modify the `state` of a React component through events.
 * Identify state in a React app
-* Explain the properties and utility of components
 * Distinguish container and presentational components
-* Describe ways to add styles to a React app
 
 ## Framing (15 minutes / 0:15)
 
-Today's lesson will revolve building an app called React TVMaze. This process will be broken up into multiple exercises. Prior to each exercise, we will either dive deeper into React concepts you have already learned or explore new ones.
+Today's lesson will revolve building an app called React TVMaze. This process will be broken up into multiple exercises. Prior to each exercise, we will dive deeper into React concepts you have already learned and explore new ones. 
 
-But before we start coding, let's talk about the fundamental unit of any React app...
+We'll introduce a new concept, `state` after reviewing `props`. They are similar, but have a couple key distinctions; `props` are passed into a component, but `state` is local or native to the component. We cannot change `props` from within a component but we can change a component's `state`. 
 
-## [Components](https://facebook.github.io/react/docs/components-and-props.html)
+Let's revisit the fundamental unit of any React app, **components**. 
 
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called "props") and return React elements describing what should appear on the screen.
+## Components
 
-In this class we'll look at building a React app that's more complex than the intro's blog example. When building an app like this, it's important to keep certain development practices and paradigms in mind so that we write maintainable code.
+Think back to F.I.R.S.T. principles: components are **focused**, **independent**, **reusable**, **small**, and **testable**. We design components to do as little as possible (*small*, *focused*) with a minimal amount of dependence on other components (*independence*). 
 
-### [F.I.R.S.T. Components](https://addyosmani.com/first/)
+While components are thought of as being independent, we still need them to talk to each other by passing data. However, to keep components small and focused, we pass only the data that is *specific to that component's purpose*. Data passed into one component by a parent component (or the application root), we call props. 
 
-A React component is built to expect an input and render a UI with it. More importantly, a well-structured component only receives data specific to its purpose. For example, our `Post` component from the blog example will only receive `title`, `author` and the like as inputs -- nothing else.
+Components can have two different types of data, `state` and `props`. So far, we've seen only `props`. Let's take another look at our `Hello` component.
 
-While this doesn't sound too groundbreaking, it is very different from the OOP principles we've gotten used to. This is because React follows a more **functional** approach to programming. For React components under this approach, **the same input will always produce the same output**.
 
-You can build an app in a lot of ways, but if you want to look at some of the best practices, we can talk about what a component should be: **F.I.R.S.T.**
+> `index.js`
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom'
+import Hello from './App.js'
 
-#### Focused
+ReactDOM.render(
+  <Hello name={"Nick"} age={24} />,
+  document.getElementById('root')
+)
+```
 
-Components should do one thing and do it well. One thing that's hard to adjust to in React coming from an OOP background is packing too much information into a component.
+> `App.js`
+```jsx
+class Hello extends Component {
+  render () {
+    return (
+      <div>
+        <h1>Hello {this.props.name}</h1>
+        <p>You are {this.props.age} years old</p>
+      </div>
+    )
+  }
+}
+```
 
-> Think back to the Post component from the intro's class.
 
-#### Independent
-
-Components should increase cohesion and reduce coupling. Behavior in one component should not impact the behavior of another. In other words, components should not rely on one another.
-
-> But they should compliment one another, just like our Comment component did for Post in the intro's class.
-
-#### Reusable
-
-Components should be written in a way that reduces the duplication of code.
-
-> While the intro's Comment component was nested under a Post, we could have used it anywhere we wanted.
-
-#### Small
-
-Ideally, components should be short and condensed.
-
-#### Testable
-
-Because the same input will always produce the same output, components are easily unit testable.
-
-> If you're interested, [Jest](https://facebook.github.io/jest/docs/tutorial-react.html) is a popular testing library for React.
+Here we are passing values, `"Nick"` and `24` into our `Hello` component in `index.js`, where we are **composing** `Hello` with the JSX expression, `<Hello name={"Nick"} age={24} />`. The `name` prop and `age` prop hold those values, `"Nick"` and `24`, respectively. We cannot change the values of received `props` in a component-- they are **immutable**. 
 
 ## [State](https://facebook.github.io/react/docs/state-and-lifecycle.html)
 
-So why do we follow all these principles? If not, it is easy to lose control of our application's state.
+The data that we can change within a component is called **state**. We haven't worked with it yet in our code, so let's talk about `state` in terms of a real-world example, online poker.
 
 <details>
-  <summary><strong>Q: What do we mean by a React component's "state"?</strong></summary>
+  <summary><strong>Q: What can you say about each player when a new game starts?</strong></summary>
 
   <br>
 
-  > The properties of a component that change as the application runs. As opposed to .props, which are immutable.
-
-</details>
-
-<br>
-
-So we've talked about `.state` at a more granular level. But now we're asking what it means for an application to have a singular "state" at a given point in time.
-
-So what is this "state"? The organization and flow of data in an application at any point in time.
-
-Let's think of states in terms of a game: Online Poker.
-
-<details>
-  <summary><strong>Q: What can you say about the player when a new game starts?</strong></summary>
-
-  <br>
-
-  > 0 cards in your hand. Some chips/credits in your pile.
+  > 0 cards in each player's hand, some starting amount of chips/credits.
 
 </details>
 
@@ -98,28 +79,52 @@ Let's think of states in terms of a game: Online Poker.
 
 <br>
 
-It's easy to think about this in terms of a game, because there is a clear idea of a beginning, end and states that reflect progress in between. You can attribute very specific data to all of these states.
+It becomes easy to think about the `state` of turn-based games, because there is a clear idea of a beginning, end, and states that reflect progress from one turn to the next turn: what cards are in each player's hand, quantity of chips, whether or not cards can be drawn, etc... 
 
 <details>
   <summary><strong>Q: So we know an application can have different states. But how do we transition in between them?</strong></summary>
 
   <br>
 
-  > Events.
+  > Events or user actions. In the example, these would be actions like betting, discarding, drawing cards, folding and calling.
 
 </details>
 
 <br>
 
-You can think of your React application as a state machine. It receives user interaction as input and what we receive as output is a UI that reflects a brand new state.
+### F.I.R.S.T. Principles and State
 
-Let's look at the process of a rendering a React Component...
+It could be argued that the primary aim of the F.I.R.S.T. philosophy around components is to create a sane approach to breaking down not just a user-interface, but also breaking up the application's data into easy-to-manage chunks, components. *Each component is concerned only with the data relevant to its purpose*.
+
+You can think of React application as an event-driven state machine, or a machine that churns out new states as a result of user interactions. A React application receives input through user interactions, and the output is a UI that reflects a brand new state (new cards, fewer or more chips).
+
+
+<details>
+  <summary><strong>Q: What do we mean by a React component's "state"?</strong></summary>
+
+  <br>
+
+  > The object properties of a component (`this.state`) that change as the application runs. `` opposed to `.props`, which are immutable.
+
+</details>
+
+<br>
+
+### State and Rendering
+
+Before moving on to build our application, it's worth mentioning another aspect of component `state`: when it changes re-rendering is triggered...
 
 ![](./react-render.png)
 
+Our UI gets updated when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
+
+We've done a fair amount of framing so far, so let's dive in to building our application!
+
+---
+
 ## Exercise: React TVMaze
 
-For this exercise, we are going to build a React app from scratch that will serve as a tv browser application, allowing users to enter a search term, and view results of tv shows via the TVMaze API.
+For this exercise, we are going to build a React app from scratch that will serve as a tv search and browsing application that allows users to enter a search term, and view results (TV shows) given by the TVMaze API.
 
 The desired outcome is for you to take a look at the solution and from there devise your own implementation. We have also included a step-by-step walkthrough of how to build out the demoed solution below.
 
@@ -134,7 +139,7 @@ $ npm run start
 
 ## [Start with a Mock](https://facebook.github.io/react/docs/thinking-in-react.html#start-with-a-mock)
 
-First step in creating a React app is to start with a mock and some sample data.
+The first step in creating a React app is to start with a mock and some sample data.
 
 ### You Do: Identify Components (10 minutes / 0:25)
 
@@ -581,11 +586,14 @@ You can test this all works by placing `console.log(this.state.query)` in the `h
 
 When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/commit/591d4306fb82c1bad5a733581d879674fde11fa1).
 
-## Bonus You Do: `handleSearchAgain`
+
+## Bonuses
+
+### Bonus You Do: `handleSearchAgain`
 
 Add a button to the `Results` UI that, when clicked, switches the view back to `Search`.
 
-## Bonus: Style in React
+### Bonus: Style in React
 
 When it comes to adding styles to React, there is a bit of debate over what's the best practice. Facebook's official docs and recommendations are to write stylesheets that treat your CSS rule declarations as properties on one big Javascript object that can be passed into components via inline styles.
 
