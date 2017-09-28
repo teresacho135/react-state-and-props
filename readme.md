@@ -203,7 +203,7 @@ The final application will use jQuery to communicate with the TVMaze API. To sta
 The below Javascript will go in our `index.js` file and will later be passed into our `Home` component as props...
 
 ```js
-const results = [
+const shows = [
   {
     "name":"The Office",
     "image":"http://static.tvmaze.com/uploads/images/medium_portrait/85/213184.jpg"
@@ -257,7 +257,7 @@ Create these three components in the following order...
 
 ### [Home](https://github.com/ga-wdi-exercises/react-tvmaze/commit/4446eb64dd7fb80dacf263b06f793ef092b8fe74)
 
-#### In `Home.js`...
+#### Rename `App.js` to `Home.js`...
 
 - Instead of creating a brand new component, we can rename `App` in all the relevant places so that it is called `Home`
 - The UI of the `Home` component should be very simple for the time being -- a `<div>` that contains a `<h1>` tag
@@ -340,9 +340,9 @@ At the moment all of our data is being passed through our app as props. We know,
 
 ## [Identify Where Your State Should Live](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live) (5 minutes / 1:25)
 
-Central to considering where state lives is the idea of **one way data flow**. The React documentation describes this step as "often the most challenging part for newcomers to understand".
+Central to considering where state lives is the idea of **one way data flow**. The React documentation describes this step as "often the most challenging part for newcomers to understand" since we are learning to distinguish state from props.   
 
-Our task here is to look for the component for each aspect of state that could be the one place where that state is managed.
+Our task here is to find the proper place for each aspect of our application's state so far (`shows`, `query`, and `hasSearched`).
 
 In our app, `query` is needed to keep track of what is going on in the search box, as well as to make the actual query.
 
@@ -352,7 +352,7 @@ Finally, we have our `hasSearched` flag which we know to set when we make the re
 
 Currently, the parent to the `Results` and `Search` components is `Home`.
 
-We don't want to clutter our top level component as our app grows. This segues nicely into the idea of Container and Presentational Components.
+We don't want to clutter our top level component as our app grows; we want to keep this **small**. This segues nicely into the idea of Container and Presentational Components.
 
 ## [Container & Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) (15 minutes / 1:50)
 
@@ -393,7 +393,7 @@ We are going to create a `SearchContainer` component to manage `query`, `shows` 
 
 ## Catch-Up & Break (15 minutes / 2:05)
 
-> By this point, [your app should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/474044ff43b809c001595c7b51842e82731d2fb0)
+> By this point, [your app should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/474044ff43b809c001595c7b51842e82731d2fb0/src)
 
 ## [Add Inverse Data Flow](https://facebook.github.io/react/docs/thinking-in-react.html#step-5-add-inverse-data-flow)
 
@@ -470,7 +470,7 @@ class Search extends Component {
 }
 ```
 
-When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/07a579736dd40488dbab943c695e329ab61ae2ba).
+When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/07a579736dd40488dbab943c695e329ab61ae2ba/src).
 
 ## You Do: `handleSearchInput` (Remaining Time)
 
@@ -619,7 +619,16 @@ To add the finishing touches to our application, let's take a stab at styling ou
 - Create a `styles` directory and make a file for your CSS rule definitions - this will be written in Javascript!
 - Load in that file in any component and then use that to apply inline styling
 
+
+
 ## Closing (10 minutes / 2:30)
+
+### Adding jQuery
+` $ npm i -S jquery`
+https://github.com/ga-wdi-exercises/react-tvmaze/commit/1c896c5a975ea9d1f6fd07bbd655caf1d1f9f9ae
+
+### Replacing Hardcoded Data
+https://github.com/ga-wdi-exercises/react-tvmaze/commit/8bb4f4edd5a98261b2a89116e40ca20e9f025269
 
 - What are some struggles you encountered when building out a more complex React app for the first time?
 - What are some good rules of thumb to help keep components maintainable?
