@@ -245,13 +245,15 @@ const shows = [
 ]
 ```
 
-## You Do: Build a Static Version of the App (40 minutes / 1:05)
+## Building a Static Version of the App
 
 > 25 minutes exercise. 15 minutes review.
 
 First we will [build a static version](https://facebook.github.io/react/docs/thinking-in-react.html#step-2-build-a-static-version-in-react) of the app passing all of our data by `props`. This makes it much easier to avoid getting bogged down in tricky details of functionality while implementing the visual appearance of the UI.
 
-Set up the three main components in the following order...
+## You Do: Set Up the `App` and `Search` Components (15 minutes / 0:40)
+
+> 10 minutes exercise / 5 minute review
 
 ### App
 
@@ -300,42 +302,7 @@ Set up the three main components in the following order...
       "name":"The Office",
       "image":"http://static.tvmaze.com/uploads/images/medium_portrait/85/213184.jpg"
     },
-    {
-      "name":"Radiant Office",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/101/254702.jpg"
-    },
-    {
-      "name":"The Office",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/93/234802.jpg"
-    },
-    {
-      "name":"Mr. Box Office",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/97/244942.jpg"
-    },
-    {
-      "name":"The Queen of Office",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/58/146476.jpg"
-    },
-    {
-      "name":"No Offence",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/48/121682.jpg"
-    },
-    {
-      "name":"Oficer",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/29/73047.jpg"
-    },
-    {
-      "name":"Trzeci oficer",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/29/73053.jpg"
-    },
-    {
-      "name":"Line Offline: Salaryman",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/57/143508.jpg"
-    },
-    {
-      "name":"Utenai Keikan",
-      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/42/106093.jpg"
-    }
+    ...
   ]
 
   ReactDOM.render(
@@ -406,6 +373,10 @@ class App extends Component {
 ```
 
 </details>
+
+## You Do: Set Up the `Results` Component (25 minutes / 1:05)
+
+> 15 minute exercise / 10 minute review
 
 ### Results
 
