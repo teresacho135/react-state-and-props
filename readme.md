@@ -1,30 +1,29 @@
 # State and Data-flow
 
 ## Learning Objectives
-* Pass in data to a React component via `props`.
-* Nest React components.
+* Review passing data to a React component via `props`.
+* Define and use nested components.
+* Identify state in a React app.
 * Modify the `state` of a React component through events.
-* Identify state in a React app
-* Distinguish container and presentational components
+* Distinguish container and presentational components.
 
 ## Framing (15 minutes / 0:15)
 
-Today's lesson will revolve building an app called React TVMaze. This process will be broken up into multiple exercises. Prior to each exercise, we will dive deeper into React concepts you have already learned and explore new ones. 
+In this lesson we will be looking at how data is managed within a React application. In particular, we will compare and contrast a component's `props` and `state`. They are similar, but have a couple key distinctions; `props` are passed into a component, but `state` is local or native to the component. While we cannot change `props` (immutable) from within a component, we can change a component's `state` (mutable).
 
-We'll introduce a new concept, `state` after reviewing `props`. They are similar, but have a couple key distinctions; `props` are passed into a component, but `state` is local or native to the component. We cannot change `props` from within a component but we can change a component's `state`. 
-
-Let's revisit the fundamental unit of any React app, **components**. 
+First, let's revisit the fundamental unit of any React app, **components**.
 
 ## Components
 
-Think back to F.I.R.S.T. principles: components are **focused**, **independent**, **reusable**, **small**, and **testable**. We design components to do as little as possible (*small*, *focused*) with a minimal amount of dependence on other components (*independence*). 
+Think back to F.I.R.S.T. principles of components: components are **focused**, **independent**, **reusable**, **small**, and **testable**. We design components to do as little as possible (*small*, *focused*) with a minimal amount of dependence on other components (*independence*).
 
-While components are thought of as being independent, we still need them to talk to each other by passing data. However, to keep components small and focused, we pass only the data that is *specific to that component's purpose*. Data passed into one component by a parent component (or the application root), we call props. 
+While components should be independent, we still need them to talk to each other by passing data. However, to keep components small and focused, we pass only the data that is *specific to that component's purpose*. Data that is passed into one component by a parent component (or the application root), we refer to as `props`.
 
-Components can have two different types of data, `state` and `props`. So far, we've seen only `props`. Let's take another look at our `Hello` component.
+Let's take another look at our `Hello` component.
 
 
 > `index.js`
+
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom'
@@ -37,6 +36,7 @@ ReactDOM.render(
 ```
 
 > `App.js`
+
 ```jsx
 class Hello extends Component {
   render () {
@@ -51,11 +51,11 @@ class Hello extends Component {
 ```
 
 
-Here we are passing values, `"Nick"` and `24` into our `Hello` component in `index.js`, where we are **composing** `Hello` with the JSX expression, `<Hello name={"Nick"} age={24} />`. The `name` prop and `age` prop hold those values, `"Nick"` and `24`, respectively. We cannot change the values of received `props` in a component-- they are **immutable**. 
+Here we are passing values, `"Nick"` and `24` into our `Hello` component in `index.js`, where we are **composing** `Hello` with the JSX expression, `<Hello name={"Nick"} age={24} />`. The `name` prop and `age` prop hold the values `"Nick"` and `24`, respectively. We cannot change the values of received `props` in a component-- they are **immutable**.
 
-## [State](https://facebook.github.io/react/docs/state-and-lifecycle.html)
+## State
 
-The data that we can change within a component is called **state**. We haven't worked with it yet in our code, so let's talk about `state` in terms of a real-world example, online poker.
+The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't worked with it yet in our code, so let's talk about `state` in terms of a real-world example, online poker.
 
 <details>
   <summary><strong>Q: What can you say about each player when a new game starts?</strong></summary>
@@ -69,17 +69,17 @@ The data that we can change within a component is called **state**. We haven't w
 <br>
 
 <details>
-  <summary><strong>Q: What about when the game ends?</strong></summary>
+  <summary><strong>Q: What about when the during the game?</strong></summary>
 
   <br>
 
-  > Cards in your hand. Your chip count changed (depending if you won or lost)
+  > Cards in your hand. Your chip count changes (depending if you win or lose).
 
 </details>
 
 <br>
 
-It becomes easy to think about the `state` of turn-based games, because there is a clear idea of a beginning, end, and states that reflect progress from one turn to the next turn: what cards are in each player's hand, quantity of chips, whether or not cards can be drawn, etc... 
+It becomes easy to think about the `state` of turn-based games, because there is a clear idea of a beginning, end, and states that reflect progress from one turn to the next turn: what cards are in each player's hand, quantity of chips, whether or not cards can be drawn, etc...
 
 <details>
   <summary><strong>Q: So we know an application can have different states. But how do we transition in between them?</strong></summary>
@@ -104,7 +104,7 @@ You can think of React application as an event-driven state machine, or a machin
 
   <br>
 
-  > The object properties of a component (`this.state`) that change as the application runs. `` opposed to `.props`, which are immutable.
+  > The object properties of a component (`this.state`) that change as the application runs, as opposed to `this.props`, which are immutable.
 
 </details>
 
@@ -126,20 +126,18 @@ We've done a fair amount of framing so far, so let's dive in to building our app
 
 For this exercise, we are going to build a React app from scratch that will serve as a tv search and browsing application that allows users to enter a search term, and view results (TV shows) given by the TVMaze API.
 
-The desired outcome is for you to take a look at the solution and from there devise your own implementation. We have also included a step-by-step walkthrough of how to build out the demoed solution below.
-
-Go ahead and clone [React TVMaze](https://github.com/ga-wdi-exercises/react-tvmaze/) now. This will be the code we start with.
+Go ahead and clone [React TVMaze](https://git.generalassemb.ly/ga-wdi-exercises/react-tvmaze) now. This will be the code we start with.
 
 ```bash
-$ git clone git@github.com:ga-wdi-exercises/react-tvmaze.git
+$ git clone git@git.generalassemb.ly:ga-wdi-exercises/react-tvmaze.git
 $ cd react-tvmaze
 $ npm install
 $ npm run start
 ```
 
-## [Start with a Mock](https://facebook.github.io/react/docs/thinking-in-react.html#start-with-a-mock)
+## Start with a Mock
 
-The first step in creating a React app is to start with a mock and some sample data.
+The first step in creating a React app is to start with a [mock](https://facebook.github.io/react/docs/thinking-in-react.html#start-with-a-mock) and some sample data.
 
 ### You Do: Identify Components (10 minutes / 0:25)
 
@@ -162,17 +160,17 @@ Look at this [deployed version of the application](http://react-tvmaze.surge.sh/
   ![search page](https://cloud.githubusercontent.com/assets/7882341/26462830/5af1a1ce-4150-11e7-9870-eb45ee12816a.png)
 
   Here we've identified two components on the search page...
-  1. The top level component, which we'll call `Home`, is boxed in magenta.
-  2. The search input, a sub-component of `Home`, in yellow we'll call `Search`.
+  1. The top level component, which we'll call `App`, is boxed in magenta.
+  2. The search component, a sub-component of `App`, in yellow we'll call `Search`.
 
   <h4>The Results View</h4>
 
   ![results page](https://cloud.githubusercontent.com/assets/7882341/26462829/5aee3d7c-4150-11e7-89cd-5bcd4147f3bc.png)
 
   Here we've identified three components on this page...
-  1. The same `Home` top level component.
-  2. A `results` components which contains results and an option to search again.
-  3. The individual results
+  1. The same `App` top level component.
+  2. A `Results` components which contains results and an option to search again.
+  3. The individual results, each represented by a `Result` component
 
 </details>
 
@@ -187,7 +185,7 @@ Look at this [deployed version of the application](http://react-tvmaze.surge.sh/
 
   Given these breakdowns we have a component hierarchy that looks like...
 
-  - `Home`
+  - `App`
     - `Search`
     - `Results`
       - `Result`
@@ -200,7 +198,7 @@ Look at this [deployed version of the application](http://react-tvmaze.surge.sh/
 
 The final application will use jQuery to communicate with the TVMaze API. To start with, however, we are going to feed the application some hard-coded data.
 
-The below Javascript will go in our `index.js` file and will later be passed into our `Home` component as props...
+The below Javascript will go in our `index.js` file and will later be passed into our `App` component as props...
 
 ```js
 const shows = [
@@ -247,67 +245,259 @@ const shows = [
 ]
 ```
 
-## You Do: [Build a Static Version of the App](https://facebook.github.io/react/docs/thinking-in-react.html#step-2-build-a-static-version-in-react) (40 minutes / 1:05)
+## Building a Static Version of the App
 
 > 25 minutes exercise. 15 minutes review.
 
-First we will build a static version of the app passing all of our data by `props`. This makes it much easier to avoid getting bogged down in tricky details of functionality while implementing the visual appearance of the UI.
+First we will [build a static version](https://facebook.github.io/react/docs/thinking-in-react.html#step-2-build-a-static-version-in-react) of the app passing all of our data by `props`. This makes it much easier to avoid getting bogged down in tricky details of functionality while implementing the visual appearance of the UI.
 
-Create these three components in the following order...
+## You Do: Set Up the `App` and `Search` Components (15 minutes / 0:40)
 
-### [Home](https://github.com/ga-wdi-exercises/react-tvmaze/commit/4446eb64dd7fb80dacf263b06f793ef092b8fe74)
+> 10 minutes exercise / 5 minute review
 
-#### Rename `App.js` to `Home.js`...
+### App
 
-- Instead of creating a brand new component, we can rename `App` in all the relevant places so that it is called `Home`
-- The UI of the `Home` component should be very simple for the time being -- a `<div>` that contains a `<h1>` tag
+#### Modify `App.js`
 
-#### In `index.js`...
-
-- Replace any references to `App` in this file with `Home`
-- If you have not already, paste the sample data in `index.js` right below the `import` statements
-- In the `ReactDOM.render` statement, make sure to pass in the sample data as props to `<Home />` using a `shows` attribute
-
-### [Search](https://github.com/ga-wdi-exercises/react-tvmaze/commit/345ec65715d5840e43de9c526b32041568754d0f)
-
-#### In `Search.js`...
-
-- Define a `Search` component
-- The UI of `Search` should be a div that contains a form with an input field and a submit button
-
-#### In `Home.js`...
-
-- Import `Search` and include it in the `Home` UI (i.e., it should contain `<Search />` somewhere)
-
-### [Results](https://github.com/ga-wdi-exercises/react-tvmaze/commit/8ab1c601e3b15c69ff5cfb7f958124ec68cef9db)
-
-#### In `Results.js`...
-
-- Define a `Results` component
-- For the time being, it's UI should only render a `<div>`
+- Remove the default jsx in the `App` component's `render` method
+- Replace it with a single `<div>` that contains a `<h1>` tag with the name of our app in it
 
 #### In `index.js`...
 
-- In `ReactDOM.render`, update `<Home shows={shows}/>` so that it also takes a `hasSearched` attribute set to `false`
+- Paste the sample data in `index.js` right below the `import` statements
+- In the `ReactDOM.render` statement, make sure to pass in the sample data as props to `<App />` via a `shows` attribute
 
-#### In `Home.js`...
+<details>
+  <summary>Solution</summary>
 
-- Import `Results`
-- Let's implement some conditional rendering in the `Home` UI...
+  ```jsx
+  // App.js
+
+  import React, { Component } from 'react';
+
+  class App extends Component {
+    render() {
+      return (
+        <div>
+          <h1>React TV Browser</h1>
+        </div>
+      );
+    }
+  }
+
+  export default App;
+  ```
+
+  ```jsx
+  // index.js
+
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import App from './App';
+  import registerServiceWorker from './registerServiceWorker';
+  import './index.css';
+
+  const shows = [
+    {
+      "name":"The Office",
+      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/85/213184.jpg"
+    },
+    ...
+  ]
+
+  ReactDOM.render(
+    <App
+      shows={shows}
+    />,
+    document.getElementById('root')
+  );
+  registerServiceWorker();
+  ```
+
+</details>
+
+
+### Search
+
+#### Create a new file in `src` named `Search.js`...
+
+- In `Search.js`, define a `Search` component
+- The UI of `Search` should be a `div` that contains a `form` with an `input` field and a submit button
+
+#### In `App.js`...
+
+- Import `Search` and include it in the `App` UI (i.e., the `render` method should contain `<Search />` somewhere)
+
+
+<details>
+<summary>Solution</summary>
+
+```jsx
+// Search.js
+
+import React, { Component } from 'react'
+
+class Search extends Component {
+  render() {
+    return (
+      <div>
+        <form>
+          <input type='text' placeholder='Enter a show name' />
+          <input type='submit' value='Search' />
+        </form>
+      </div>
+    )
+  }
+}
+
+export default Search
+```
+
+```jsx
+// App.js
+
+import Search from './Search'
+
+// ...
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>React TV Browser</h1>
+        <Search />
+      </div>
+    );
+  }
+}
+```
+
+</details>
+
+## You Do: Set Up the `Results` Component (25 minutes / 1:05)
+
+> 15 minute exercise / 10 minute review
+
+### Results
+
+#### Create a new file in `src` named `Results.js`...
+
+- In `Results.js`, define a `Results` component
+- For the time being, it's UI should only render a `div` with a `h1` titled "Results"
+
+#### In `index.js`...
+
+- In `ReactDOM.render`, pass a new `hasSearched` prop to `App` that is set to `false`
+
+#### In `App.js`...
+
+- Import the new `Results` component
+- Add conditional rendering in the `Home` UI...
   - If `this.props.hasSearched` is false, render `<Search />`
   - If `this.props.hasSearched` is true, render `<Results shows={this.props.shows}/>`
+- You can test if it's working by changing the `hasSearched` prop in `index.js` between `true` and `false`
+
+> Note: we are passing the `shows` data down to `Results` via props here
 
 > [Documentation on conditional rendering in React](https://facebook.github.io/react/docs/conditional-rendering.html)
 
-#### Back in `Results.js`...
+
+<details>
+  <summary>Solution</summary>
+
+  ```jsx
+  // Results.js
+
+  import React, { Component } from 'react'
+
+  class Results extends Component {
+    render() {
+      return (
+        <div>
+          <h1>Results</h1>
+        </div>
+      )
+    }
+  }
+
+  export default Results
+  ```
+
+  ```jsx
+  // index.js
+
+  ReactDOM.render(
+    <App
+      shows={shows}
+      hasSearched={false}
+    />,
+    document.getElementById('root')
+  );
+  ```
+
+  ```jsx
+  // App.js
+
+  import Results from './Results'
+
+  // ...
+
+  class App extends Component {
+    render() {
+      return (
+        <div>
+          <h1>React TV Browser</h1>
+          {
+            this.props.hasSearched ?
+            <Results shows={this.props.shows}/> :
+            <Search />
+          }
+        </div>
+      );
+    }
+  }
+  ```
+
+</details>
+
+
+### Rendering shows in `Results.js`...
 
 - In `render` but before the `return` statement, define a `results` variable.
-- This `results` variable will contain the product of `this.props.shows.map` (i.e., a map statement being called on our sample data)
+- This `results` variable will contain the return value of `this.props.shows.map` (i.e., a map statement being called on our sample data being received via `props`)
 - Each iteration of the `.map` statement should return a `<div>`
 - Each `<div>` should include...
   - An `<img>` that sources the image URL included in the sample data
   - A `<p>` that displays the show name included in the sample data
 - Update the `Results` UI so that it displays whatever is stored in the `results` variable, which at this point should be an array of `<div>`s
+
+<details>
+  <summary>Solution</summary>
+
+  ```jsx
+  // Results.js
+
+  class Results extends Component {
+    render() {
+      let results = this.props.shows.map((show, index) => {
+        return (
+          <div key={index}>
+            <img src={show.image} alt={show.name} />
+            <p>{show.name}</p>
+          </div>
+        )
+      })
+      return (
+        <div>
+          {results}
+        </div>
+      )
+    }
+  }
+  ```
+
+</details>
+
 
 ### CSS (Optional)
 
@@ -318,11 +508,9 @@ Create these three components in the following order...
 
 ## Break (10 minutes / 1:15)
 
-> By this point, [your app should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/047ab74ca2ef87d31555917ab7d66fef34bdd80f)
+## Identify the Minimal Representation of UI State (5 minutes / 1:20)
 
-## [Identify the Minimal Representation of UI State](https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state) (5 minutes / 1:20)
-
-At the moment all of our data is being passed through our app as props. We know, however, that we will have data that changes as a user interacts with the app. That information needs to live in our application's state.
+At the moment all of our data is being passed through our app as props. We know, however, that we will have data that changes as a user interacts with the app. That information needs to live in our application's state. We need to figure out what the [minimal amount of state](https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state) our app needs and what components need it.
 
 <details>
   <summary><strong>What information needs to live in state? This may include a value(s) that we have not yet included in our code...</strong></summary>
@@ -338,9 +526,9 @@ At the moment all of our data is being passed through our app as props. We know,
 
 <br>
 
-## [Identify Where Your State Should Live](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live) (5 minutes / 1:25)
+## Identify Where Your State Should Live (5 minutes / 1:25)
 
-Central to considering where state lives is the idea of **one way data flow**. The React documentation describes this step as "often the most challenging part for newcomers to understand" since we are learning to distinguish state from props.   
+Central to [deciding where state lives](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live) is the idea of **one way data flow**. The React documentation describes this step as "often the most challenging part for newcomers to understand" since we are learning to distinguish state from props.   
 
 Our task here is to find the proper place for each aspect of our application's state so far (`shows`, `query`, and `hasSearched`).
 
@@ -350,13 +538,13 @@ This request will return the shows to the same component which managed the query
 
 Finally, we have our `hasSearched` flag which we know to set when we make the request, so these should all live in the same place.
 
-Currently, the parent to the `Results` and `Search` components is `Home`.
+Currently, the parent to the `Results` and `Search` components is `App`.
 
 We don't want to clutter our top level component as our app grows; we want to keep this **small**. This segues nicely into the idea of Container and Presentational Components.
 
-## [Container & Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) (15 minutes / 1:50)
+## Container & Presentational Components (15 minutes / 1:50)
 
-The above workflow has led to the popular component architecture of distinguishing container and presentational components.
+The above workflow has led to the popular component architecture of distinguishing [Container and Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
 
 **Presentational components** are components that render themselves based solely on the information that they receive from props. At this point, all of our components are presentational.
 
@@ -368,9 +556,9 @@ We are going to create a `SearchContainer` component to manage `query`, `shows` 
 
 ### We Do: Implement `SearchContainer`
 
-#### In a new `SearchContainer.js` file...
+#### In `src`, create a new `SearchContainer.js` file...
 
-- Import React as well as the `Search` and `Results` components
+- In `SearchContainer.js`, import React as well as the `Search` and `Results` components
 - Define a `SearchContainer` component and give it a `constructor` function
 - The `constructor` function should define an initial state containing the following values...
   - `shows`: this should be set to the sample data -- you can move it into this file
@@ -378,26 +566,85 @@ We are going to create a `SearchContainer` component to manage `query`, `shows` 
   - `query`: this should be initialized as an empty string
 - For now, have the UI be a single `<div>`
 
-#### In `Home.js`...
+#### In `App.js`...
 
 - Import the `SearchContainer` component
-- Copy the code that handles the conditional rendering of `<Search />` and `<Results />` -- we're going to use it elsewhere
-- Once you've done that, update the UI so that it only renders the `<h1>` and `<SearchContainer />`.
-- The conditional rendering will be delegated to the `SearchContainer` component
+- Copy and remove the code in `App`'s current render method -- including the conditional rendering of `<Search />` and `<Results />` -- we're going to use it in `SearchContainer` instead
+- Once you've done that, update the UI so that it only renders the `<SearchContainer />`.
 
 #### In `SearchContainer.js`...
 
 - Paste the conditional logic that controls whether the user sees `<Search />` or `<Results />` into the render method, making sure that its dependent on the `hasSearched` value in state (not props)
-- Update `<Search />` in the UI so that it takes in `this.state.query` via props as `query`
 - Update `<Results />` in the UI so that it takes in `this.state.shows` via props as `shows`
+
+<details>
+  <summary>Solution</summary>
+
+  ```jsx
+  // SearchContainer.js
+
+  import React, { Component } from 'react'
+
+  import Search from './Search'
+  import Results from './Results'
+
+  const shows = [
+    {
+      "name":"The Office",
+      "image":"http://static.tvmaze.com/uploads/images/medium_portrait/85/213184.jpg"
+    },
+    ...
+  ]
+
+
+  class SearchContainer extends Component {
+    constructor (props) {
+      super(props)
+      this.state = {
+        shows: shows,
+        hasSearched: false,
+        query: ''
+      }
+    }
+
+    render() {
+      return (
+        <div>
+          <h1>React TV Browser</h1>
+          {
+            this.state.hasSearched ?
+            <Results shows={this.state.shows}/> :
+            <Search />
+          }
+        </div>
+      )
+    }
+  }
+
+
+  export default SearchContainer
+  ```
+
+  ```jsx
+  // App.js
+
+  class App extends Component {
+    render() {
+      return (      
+        <SearchContainer />
+      )
+    }
+  }
+  ```
+
+</details>
 
 ## Catch-Up & Break (15 minutes / 2:05)
 
-> By this point, [your app should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/474044ff43b809c001595c7b51842e82731d2fb0/src)
 
-## [Add Inverse Data Flow](https://facebook.github.io/react/docs/thinking-in-react.html#step-5-add-inverse-data-flow)
+## Add Inverse Data Flow
 
-The last step is passing callbacks through props to presentational components to provide behavior.
+The last step is passing callbacks through props to presentational components to provide behavior. This is so that events that occur in `Search` can modify the state of the parent `SearchContainer` component. In React, we refer to this as [inverse data flow](https://facebook.github.io/react/docs/thinking-in-react.html#step-5-add-inverse-data-flow).
 We will need three functions defined on the `SearchContainer` component to provide necessary behavior to `Search` and `Results`...
 
 1. `handleSearchInput` for managing changes to the input field
@@ -405,7 +652,7 @@ We will need three functions defined on the `SearchContainer` component to provi
 
 ## We Do: `onSubmitQuery` (15 minutes / 2:20)
 
-Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for another lesson.
+Let's first illustrate this concept by defining an `onSubmitQuery` method. For now, we will focus on switching `hasSearched` from `false` to `true`. We will save making the AJAX call for searched TV shows for another lesson but it will eventually go in this function.
 
 #### In `SearchContainer.js`...
 
@@ -432,10 +679,16 @@ Because this method will be triggered when the user interacts with the `Search` 
 class SearchContainer extends Component {
   // ...
   render(){
-    const toRender = this.state.hasSearched
-      ? <Results shows={this.state.shows} />
-      : <Search query={this.state.query} onSubmitQuery={this.onSubmitQuery} />
-    return <div>{toRender}</div>
+    return (
+      <div>
+        <h1>React TV Browser</h1>
+        {
+          this.state.hasSearched ?
+          <Results shows={this.state.shows}/> :
+          <Search onSubmitQuery={this.onSubmitQuery}/>
+        }
+      </div>
+    )
   }
 }
 ```
@@ -446,7 +699,11 @@ We also need to update the `constructor` so that the context of `onSubmitQuery` 
 class SearchContainer extends Component {
   constructor(props){
     super(props)
-    this.state = { ... }
+    this.state = {
+      shows: shows,
+      hasSearched: false,
+      query: ''
+    }
     this.onSubmitQuery = this.onSubmitQuery.bind(this)
   }
   // ...
@@ -462,25 +719,23 @@ class Search extends Component {
   render() {
     return (
       <form onSubmit={this.props.onSubmitQuery}>
-        <input type="text" placeholder="Enter search term" />
-        <button type="submit">Submit</button>
+        <input type='text' placeholder='Enter search term' />
+        <input type='submit' value='Search' />
       </form>
     )
   }
 }
 ```
 
-When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/tree/07a579736dd40488dbab943c695e329ab61ae2ba/src).
+## You Do: Implement `handleSearchInput` (Remaining Time)
 
-## You Do: `handleSearchInput` (Remaining Time)
-
-Your task: define a `handleSearchInput` method in `SearchContainer`. The purpose of this method is to update the `query` value in state whenever the user changes the input (i.e., adds or removes a character) in the app's search field.
+We need some way to alter `SearchContainer`'s query attribute in it's `state` anytime a user makes a change to the input field in `Search`. To accomplish this, you should define a `handleSearchInput` method in `SearchContainer`. The purpose of this method is to update the `query` value in `SearchContainer`'s state whenever the user changes the input in `Search` (i.e., adds or removes a character) in the app's search field.
 
 #### In `SearchContainer.js`...
 
 Define a `handleSearchInput` method in the component definition. It should use `.setState` to set `query` to whatever is entered into the search field.
 
-> Hint: the value in the search field will be accessible via an event object.
+> Hint: the value in the search field will be accessible via an event (`e`) object.
 
 <details>
   <summary><strong>Click to reveal solution...</strong></summary>
@@ -505,7 +760,7 @@ Define a `handleSearchInput` method in the component definition. It should use `
 
 <br>
 
-Because this method will be triggered when the user modifies `Search`'s input field, we need to pass `handleSearchInput` down to `Search` via props...
+Since this method will be triggered when the user modifies `Search`'s input field, we need to pass `handleSearchInput` down to `Search` via props...
 
 <details>
   <summary><strong>Click to reveal solution...</strong></summary>
@@ -516,11 +771,19 @@ Because this method will be triggered when the user modifies `Search`'s input fi
   class SearchContainer extends Component {
     // ...
     render(){
-      const toRender = this.state.hasSearched
-        ? <Results shows={this.state.shows} />
-        : <Search query={this.state.query} handleSearchInput={this.handleSearchInput}
-        onSubmitQuery={this.onSubmitQuery}  />
-      return <div>{toRender}</div>
+      return (
+        <div>
+          <h1>React TV Browser</h1>
+          {
+            this.state.hasSearched ?
+            <Results shows={this.state.shows}/> :
+            <Search
+              onSubmitQuery={this.onSubmitQuery}
+              onSearchInput={this.onSearchInput}
+            />
+          }
+        </div>
+      )
     }
   }
   ```
@@ -540,7 +803,11 @@ We also need to update the `constructor` so that the context of `handleSearchInp
   class SearchContainer extends Component {
     constructor(props){
       super(props)
-      this.state = { ... }
+      this.state = {
+        shows: shows,
+        hasSearched: false,
+        query: ''
+      }
       this.onSubmitQuery = this.onSubmitQuery.bind(this)
       this.handleSearchInput = this.handleSearchInput.bind(this)
     }
@@ -567,10 +834,12 @@ Now we have to update the `Search` UI so that when the content of the input fiel
   class Search extends Component {
     render() {
       return (
-        <form onSubmit={this.props.onSubmitQuery}>
-          <input type="text" placeholder="Enter search term" onChange={this.props.handleSearchInput} />
-          <button type="submit">Submit</button>
-        </form>
+        <div>
+          <form onSubmit={this.props.onSubmitQuery}>
+            <input type='text' placeholder='Enter a show name' onChange={this.props.onSearchInput}/>
+            <input type='submit' value='Search' />
+          </form>
+        </div>
       )
     }
   }
@@ -584,7 +853,6 @@ You can test this all works by placing `console.log(this.state.query)` in the `h
 
 > You may need to place this inside of a callback to `setState` since updating state actually happens asynchronously. [More on that in the React documentation](https://facebook.github.io/react/docs/react-component.html#setstate).
 
-When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/commit/591d4306fb82c1bad5a733581d879674fde11fa1).
 
 
 ## Bonuses
@@ -605,9 +873,13 @@ However, this kind of rethinking the wheel feels like a step backwards for a lot
 
 Also, via Webpack and other custom loaders, it is possible to use many third-party libraries or processors such as SASS, LESS, and Post-CSS.
 
-Interesting to note, this problem has not been universally solved, and thus the debate will most likely continue to rage on until [somebody](https://medium.com/@jviereck/modularise-css-the-react-way-1e817b317b04#.61qgjgdu3) figures it out. Therefore, its often left to a team decision when choosing the best option for the application.
+Interesting to note, this problem has not been universally solved, and thus the debate will most likely continue to rage on until somebody figures it out. Therefore, its often left to a team decision when choosing the best option for the application.
 
-> Interested in learning more? Check out some excellent [blog posts](http://jamesknelson.com/why-you-shouldnt-style-with-javascript/) on the [subject](http://stackoverflow.com/questions/26882177/react-js-inline-style-best-practices) from the [front-end community](https://css-tricks.com/the-debate-around-do-we-even-need-css-anymore/)
+Interested in learning more? Check out some excellent blog posts on the subject from the front-end community:
+- https://medium.com/@jviereck/modularise-css-the-react-way-1e817b317b04#.61qgjgdu3
+- http://jamesknelson.com/why-you-shouldnt-style-with-javascript/
+- http://stackoverflow.com/questions/26882177/react-js-inline-style-best-practices
+- https://css-tricks.com/the-debate-around-do-we-even-need-css-anymore/
 
 ### [Example of Object Literal Styles with React](https://github.com/ga-wdi-exercises/react-omdb/commit/830697fc68dcdccafcae9f73e711103de8d93fc9)
 
