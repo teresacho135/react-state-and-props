@@ -728,7 +728,11 @@ We also need to update the `constructor` so that the context of `onSubmitQuery` 
 class SearchContainer extends Component {
   constructor(props){
     super(props)
-    this.state = { ... }
+    this.state = {
+      shows: shows,
+      hasSearched: false,
+      query: ''
+    }
     this.onSubmitQuery = this.onSubmitQuery.bind(this)
   }
   // ...
@@ -752,15 +756,15 @@ class Search extends Component {
 }
 ```
 
-## You Do: `handleSearchInput` (Remaining Time)
+## You Do: Implement `handleSearchInput` (Remaining Time)
 
-Define a `handleSearchInput` method in `SearchContainer`. The purpose of this method is to update the `query` value in `SearchContainer`'s state whenever the user changes the input in `Search` (i.e., adds or removes a character) in the app's search field.
+We need some way to alter `SearchContainer`'s query attribute in it's `state` anytime a user makes a change to the input field in `Search`. To accomplish this, you should define a `handleSearchInput` method in `SearchContainer`. The purpose of this method is to update the `query` value in `SearchContainer`'s state whenever the user changes the input in `Search` (i.e., adds or removes a character) in the app's search field.
 
 #### In `SearchContainer.js`...
 
 Define a `handleSearchInput` method in the component definition. It should use `.setState` to set `query` to whatever is entered into the search field.
 
-> Hint: the value in the search field will be accessible via an event object.
+> Hint: the value in the search field will be accessible via an event (`e`) object.
 
 <details>
   <summary><strong>Click to reveal solution...</strong></summary>
@@ -785,7 +789,7 @@ Define a `handleSearchInput` method in the component definition. It should use `
 
 <br>
 
-Because this method will be triggered when the user modifies `Search`'s input field, we need to pass `handleSearchInput` down to `Search` via props...
+Since this method will be triggered when the user modifies `Search`'s input field, we need to pass `handleSearchInput` down to `Search` via props...
 
 <details>
   <summary><strong>Click to reveal solution...</strong></summary>
@@ -802,7 +806,10 @@ Because this method will be triggered when the user modifies `Search`'s input fi
           {
             this.state.hasSearched ?
             <Results shows={this.state.shows}/> :
-            <Search />
+            <Search
+              onSubmitQuery={this.onSubmitQuery}
+              onSearchInput={this.onSearchInput}
+            />
           }
         </div>
       )
@@ -825,7 +832,11 @@ We also need to update the `constructor` so that the context of `handleSearchInp
   class SearchContainer extends Component {
     constructor(props){
       super(props)
-      this.state = { ... }
+      this.state = {
+        shows: shows,
+        hasSearched: false,
+        query: ''
+      }
       this.onSubmitQuery = this.onSubmitQuery.bind(this)
       this.handleSearchInput = this.handleSearchInput.bind(this)
     }
@@ -852,10 +863,12 @@ Now we have to update the `Search` UI so that when the content of the input fiel
   class Search extends Component {
     render() {
       return (
-        <form onSubmit={this.props.onSubmitQuery}>
-          <input type="text" placeholder="Enter search term" onChange={this.props.handleSearchInput} />
-          <button type="submit">Submit</button>
-        </form>
+        <div>
+          <form onSubmit={this.props.onSubmitQuery}>
+            <input type='text' placeholder='Enter a show name' onChange={this.props.onSearchInput}/>
+            <input type='submit' value='Search' />
+          </form>
+        </div>
       )
     }
   }
@@ -869,7 +882,6 @@ You can test this all works by placing `console.log(this.state.query)` in the `h
 
 > You may need to place this inside of a callback to `setState` since updating state actually happens asynchronously. [More on that in the React documentation](https://facebook.github.io/react/docs/react-component.html#setstate).
 
-When your done with this section, [your code should look something like this](https://github.com/ga-wdi-exercises/react-tvmaze/commit/591d4306fb82c1bad5a733581d879674fde11fa1).
 
 
 ## Bonuses
@@ -890,9 +902,13 @@ However, this kind of rethinking the wheel feels like a step backwards for a lot
 
 Also, via Webpack and other custom loaders, it is possible to use many third-party libraries or processors such as SASS, LESS, and Post-CSS.
 
-Interesting to note, this problem has not been universally solved, and thus the debate will most likely continue to rage on until [somebody](https://medium.com/@jviereck/modularise-css-the-react-way-1e817b317b04#.61qgjgdu3) figures it out. Therefore, its often left to a team decision when choosing the best option for the application.
+Interesting to note, this problem has not been universally solved, and thus the debate will most likely continue to rage on until somebody figures it out. Therefore, its often left to a team decision when choosing the best option for the application.
 
-> Interested in learning more? Check out some excellent [blog posts](http://jamesknelson.com/why-you-shouldnt-style-with-javascript/) on the [subject](http://stackoverflow.com/questions/26882177/react-js-inline-style-best-practices) from the [front-end community](https://css-tricks.com/the-debate-around-do-we-even-need-css-anymore/)
+Interested in learning more? Check out some excellent blog posts on the subject from the front-end community:
+- https://medium.com/@jviereck/modularise-css-the-react-way-1e817b317b04#.61qgjgdu3
+- http://jamesknelson.com/why-you-shouldnt-style-with-javascript/
+- http://stackoverflow.com/questions/26882177/react-js-inline-style-best-practices
+- https://css-tricks.com/the-debate-around-do-we-even-need-css-anymore/
 
 ### [Example of Object Literal Styles with React](https://github.com/ga-wdi-exercises/react-omdb/commit/830697fc68dcdccafcae9f73e711103de8d93fc9)
 
