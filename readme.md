@@ -896,14 +896,28 @@ To add the finishing touches to our application, let's take a stab at styling ou
 ## Closing (10 minutes / 2:30)
 
 ### Adding jQuery
-` $ npm i -S jquery`
-https://github.com/ga-wdi-exercises/react-tvmaze/commit/1c896c5a975ea9d1f6fd07bbd655caf1d1f9f9ae
 
-### Replacing Hardcoded Data
-https://github.com/ga-wdi-exercises/react-tvmaze/commit/8bb4f4edd5a98261b2a89116e40ca20e9f025269
+## Adding axios
 
-- What are some struggles you encountered when building out a more complex React app for the first time?
-- What are some good rules of thumb to help keep components maintainable?
+Replace your hardcoded data with API calls using `axios`.
+
+> Installing axios...
+
+```sh
+ $ yarn add axios
+```
+
+> Create a new file called `Util.js`. Export a function like so...
+
+```js
+import axios from 'axios'
+
+export function queryTVMazeAPI (query) {
+  const url = '' //find the URL to query here: https://www.tvmaze.com/api#show-search
+  axios.get(url)
+       .then(response => console.log(response))
+}
+```
 
 ## Resources
 
