@@ -181,7 +181,7 @@ The below Javascript will go in our `index.js` file and will later be passed int
 
 ```js
 const data = {
-	counters: 5
+  counters: 5
 }
 ```
 
@@ -246,20 +246,16 @@ Your `CounterList` component should take the number of counters as a prop and th
 
 ```js
 class List extends Component {
-	render() {
-		let list= [<Item />, <Item />, <Item />]
+  render() {
+    let list = [<Item />, <Item />, <Item />];
 
-		return (
-			<div className="list">
-				{list}
-			</div>
-		)
-	}
+    return <div className="list">{list}</div>;
+  }
 }
 ```
 
-<summary>
-	<details>Solution</details>
+<details>
+	<summary>Solution</summary>
 	
 `CounterList.js`:
 
@@ -300,7 +296,7 @@ class Counter extends Component {
 export default Counter;
 ```
 
-</summary>
+</details>
 
 ## Break (10 min / 1:25)
 
@@ -316,8 +312,9 @@ This may include a value(s) that we have not yet included in our code.
   <summary>Solution</summary>
 
 For our app to work we need:
-	- `numberOfCounters` (the number of counters to render in our `App` component)
-  - `count` (the count of a `Counter` component)
+
+- `numberOfCounters` (the number of counters to render in our `App` component)
+- `count` (the count of a `Counter` component)
 </details>
 
 ## Identify Where Your State Should Live (5 min / 1:40)
