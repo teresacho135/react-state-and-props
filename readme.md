@@ -197,8 +197,8 @@ First we will [build a static version](https://facebook.github.io/react/docs/thi
 
 Try to get it so that your `App` component displays the number of counters underneath the `Header` component (provided in the starter code).
 
-<summary>
-	<details>Solution</details>
+<details>
+	<summary>Solution</summary>
 	
 `index.js`:
 
@@ -234,7 +234,7 @@ class App extends Component {
 
 export default App;
 ```
-</summary
+</details>
 
 ### You Do: Set Up the `CounterList` and `Counter` Components
 
