@@ -106,7 +106,7 @@ The object properties of a component (`this.state`) that change as the applicati
 
 Before moving on to build our application, it's worth mentioning another aspect of component `state`: when it changes our components re-render:
 
-![](./react-component-state-update.png)
+![](./images/react-component-state-update.png)
 
 Our UI gets updated when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
 
@@ -149,7 +149,7 @@ Look at this [deployed version of the application](http://react-counter.surge.sh
 <details>
   <summary><strong>Open to see the components</strong></summary>
 
-  ![](react-counter-annotated.png)
+  ![](./images/react-counter-annotated.png)
 
 Here we've identified four components on the home page:
   1. The top level component, which we'll call `App`, is boxed in red
