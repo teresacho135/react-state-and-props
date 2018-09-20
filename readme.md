@@ -8,7 +8,7 @@
 * Modify the `state` of a React component through events.
 * Distinguish container and presentational components.
 
-## Framing (15 min / 0:15)
+## Framing
 
 In this lesson we will be looking at how data is managed within a React application. In particular, we will compare and contrast a component's `props` and `state`. They are similar, but have a couple key distinctions:
 
@@ -21,11 +21,11 @@ First, let's revisit the fundamental unit of any React app: **components**.
 
 Think back to F.I.R.S.T. principles of components. Components are:
 
-* **focused**,
-* **independent**,
-* **reusable**,
-* **small**, and
-* **testable**.
+* **Focused**,
+* **Independent**,
+* **Reusable**,
+* **Small**, and
+* **Testable**.
 
 We design components to do as little as possible (*small*, *focused*) with a minimal amount of dependence on other components (*independence*, *reusable*).
 
@@ -45,7 +45,7 @@ ReactDOM.render(
 )
 ```
 
-```js
+```jsx
 // App.js
 class Hello extends Component {
   render () {
@@ -61,7 +61,7 @@ class Hello extends Component {
 
 Props are one of the things that make React so powerful and help us make **independent** and **reusable** components. We can pass different data to our `Hello` component and easily get the same html and css but with different data:
 
-```js
+```jsx
 <Hello name={"Nick"} age={24} />
 <Hello name={"Billy"} age={30} />
 <Hello name={"Sheryl"} age={24} />
@@ -70,7 +70,7 @@ Props are one of the things that make React so powerful and help us make **indep
 
 Here we are passing values, `"Nick"` and `24` into our first `Hello` component in `index.js`, where we are **composing** `Hello` with the JSX expression, `<Hello name={"Nick"} age={24} />`. The `name` prop and `age` prop hold the values `"Nick"` and `24`, respectively. We cannot change the values of received `props` in a component - they are **immutable**. So what do we do with data we want to control from within a component?
 
-## State (10 min / 0:25)
+## State
 
 The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Your project 1s all tracked some state, regardless of which game you built:
 
@@ -80,11 +80,11 @@ The limitation of props is that we can't change the data from within the compone
 
 We can figure out the `state` of a turn-based game because there is a clear idea of a beginning and end and states that reflect progress from one turn to the next turn: what flash card is the user on, what buttons do they need to push, how are the discs distributed among the three towers.
 
-<details>
-  <summary>Q: So we know an application can have different states. But how do we transition in between them?</summary>
+
+*Q: So we know an application can have different states. But how do we transition in between them?*
 
 Events! (or user actions)
-</details>
+
 
 ### F.I.R.S.T. Principles and State
 
@@ -96,21 +96,21 @@ For your first project, you had to do that manually. Manually write event listen
 
 You can think of React as an event-driven state machine, or a machine that churns out new states as a result of user interactions. A React application receives input through user interactions (event listeners) and outputs a UI that reflects a brand new state (new cards, fewer or more chips, etc).
 
-<details>
-  <summary>Q: What do we mean by a React component's "state"?</summary>
+
+ *Q: What do we mean by a React component's "state"?*
 
 The object properties of a component (`this.state`) that change as the application runs, as opposed to `this.props`, which are immutable.
-</details>
+
 
 ### State and Rendering
 
 Before moving on to build our application, it's worth mentioning another aspect of component `state`: when it changes our components re-render:
 
-![](./images/react-component-state-update.png)
+![react component image](./images/react-component-state-update.png)
 
 Our UI gets updated when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
 
-## Check for Understanding (10 min / 0:35)
+## Check for Understanding
 
 * What is the difference between `state` and `props`?
 * What do we use `props` for?
@@ -118,7 +118,7 @@ Our UI gets updated when state changes. The user takes some action, like submitt
 
 We've done a fair amount of framing so far, so let's dive in to building our application!
 
-## Exercise: React Counters (5 min / 0:40)
+## Exercise: React Counters
 
 For this exercise, we are going to build a React app from scratch that will serve as an [Abacus](https://en.wikipedia.org/wiki/Abacus) of sorts.
 
@@ -128,16 +128,15 @@ Go ahead and clone [React Counters](https://git.generalassemb.ly/ga-wdi-exercise
 $ git clone git@git.generalassemb.ly:ga-wdi-exercises/react-counters.git
 $ cd react-counters
 $ npm install
-$ npm run start
+$ npm start
 ```
 
 ## Start with a Mock
 
 The first step in creating a React app is to start with a [mock](https://facebook.github.io/react/docs/thinking-in-react.html#start-with-a-mock) and some sample data.
 
-### You Do: Identify Components (10 min / 0:50)
+### You Do: Identify Components 
 
-> 5 minutes exercise. 5 minutes review.
 
 Look at this [deployed version of the application](http://react-counter.surge.sh/) and answer the following questions:
 
@@ -185,15 +184,13 @@ const data = {
 }
 ```
 
-## Building a Static Version of the App (25 min / 1:15)
+## Building a Static Version of the App
 
-> 25 minutes exercise / 15 minutes review.
 
 First we will [build a static version](https://facebook.github.io/react/docs/thinking-in-react.html#step-2-build-a-static-version-in-react) of the app passing all of our data by `props`. This makes it much easier to avoid getting bogged down in tricky details of functionality while implementing the visual appearance of the UI.
 
 ### You Do: Set Up the `App` Component and `index.js`
 
-> 5 minutes exercise / 5 minute review
 
 Try to get it so that your `App` component displays the number of counters underneath the `Header` component (provided in the starter code).
 
@@ -238,7 +235,6 @@ export default App;
 
 ### You Do: Set Up the `CounterList` and `Counter` Components
 
-> 10 minutes exercise / 5 minute review
 
 Your `CounterList` component should take the number of counters as a prop and then render that many versions of your `Counter` component. Your `Counter` component will render `"Counter: 0"` inside of an `<h4>` and two buttons (one for incrementing and one for decrementing).
 
@@ -298,13 +294,12 @@ export default Counter;
 
 </details>
 
-## Break (10 min / 1:25)
 
-## Identify the Minimal Representation of UI State (5 min / 1:30)
+## Identify the Minimal Representation of UI State 
 
 At the moment all of our data is being passed through our app as props. We know, however, that we will have data that changes as a user interacts with the app. That information needs to live in our application's state. We need to figure out what the [minimal amount of state](https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state) our app needs and what components need it.
 
-### You Do: What information needs to live in state? (5 min / 1:35)
+### You Do: What information needs to live in state? 
 
 This may include a value(s) that we have not yet included in our code.
 
@@ -317,13 +312,13 @@ For our app to work we need:
 - `count` (the count of a `Counter` component)
 </details>
 
-## Identify Where Your State Should Live (5 min / 1:40)
+## Identify Where Your State Should Live 
 
 Central to [deciding where state lives](https://facebook.github.io/react/docs/thinking-in-react.html#step-4-identify-where-your-state-should-live) is the idea of **one way data flow**. The React documentation describes this step as "often the most challenging part for newcomers to understand" since we are learning to distinguish state from props.   
 
 Our task here is to find the proper place for each part of our application's state.
 
-## Working with State (10 min / 1:50)
+## Working with State 
 
 Lets start with our `Counter` component. Right now, it doesn't have any state and it isn't passed any props. What we want is for the `Counter` component to keep track of the count in state. Then, whenever someone clicks one of the two buttons we'll increase or decrease that number.
 
@@ -386,7 +381,7 @@ Now that we've made it so our `Counter` component is tracking it's count inside 
 
 This segues nicely into the idea of Container and Presentational Components.
 
-## Container & Presentational Components (20 minutes / 2:10)
+## Container & Presentational Components 
 
 The above workflow has led to the popular component architecture of distinguishing [Container and Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
 
@@ -400,7 +395,6 @@ Our `App` component could be a **container component!**
 
 ### You Do: Update `App`
 
-> 10 minutes exercise / 5 minutes review
 
 We want to update `App` so that it is tracking the number of counters to render in it's `state`. To do that, we need to update our component.
 
@@ -444,7 +438,7 @@ Just like in your first project, we're going to update the state of our applicat
 
 There's just one issue: those two buttons are in our `Header` component (a presentational component).
 
-## Add Inverse Data Flow (15 min / 2:10)
+## Add Inverse Data Flow 
 
 We can give presentational components behavior by passing callback functions to them as props. By binding those callback functions to the parent, container component we can use them to update our state. In React, we refer to this as [inverse data flow](https://facebook.github.io/react/docs/thinking-in-react.html#step-5-add-inverse-data-flow). We will need two functions defined in `App` and passed to `Header`.
 
@@ -454,7 +448,7 @@ Define an `increaseCounters()` method and `decreaseCounters()` method on the `Ap
 
 Once your two methods are defined, pass them both to the `Header` component as props. What do you need to do inside of `Header` to make it so that when someone clicks on one of the buttons the number of counters increases or decreases?
 
-## Closing (5 min / 2:30)
+## Closing 
 
 If asked, could you explain the differences between props and state? We've now covered the differences between the two as well as how you can use state to control data inside a component and how to update state to display new data to a user.
 
