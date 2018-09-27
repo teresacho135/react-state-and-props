@@ -125,7 +125,7 @@ For this exercise, we are going to build a React app from scratch that will serv
 Go ahead and clone [React Counters](https://git.generalassemb.ly/ga-wdi-exercises/react-counters) now. This will be the code we start with.
 
 ```bash
-$ git clone git@git.generalassemb.ly:ga-wdi-exercises/react-counters.git
+$ git clone https://git.generalassemb.ly/ga-wdi-exercises/react-counters
 $ cd react-counters
 $ npm install
 $ npm start
