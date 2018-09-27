@@ -340,8 +340,6 @@ class Counter extends Component {
 +      count: 0
 +    };
 +
-+    this.increaseCount = this.increaseCount.bind(this);
-+    this.decreaseCount = this.decreaseCount.bind(this);
 +  }
 
   render() {
@@ -356,7 +354,7 @@ class Counter extends Component {
     );
   }
 
-+  increaseCount() {
++  increaseCount = () => {
 +    let count = this.state.count + 1;
 +
 +    this.setState({
@@ -364,7 +362,7 @@ class Counter extends Component {
 +    });
 +  }
 +
-+  decreaseCount() {
++  decreaseCount = () => {
 +    let count = this.state.count - 1;
 +
 +    this.setState({
