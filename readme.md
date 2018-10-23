@@ -125,7 +125,7 @@ For this exercise, we are going to build a React app from scratch that will serv
 Go ahead and clone [React Counters](https://git.generalassemb.ly/ga-wdi-exercises/react-counters) now. This will be the code we start with.
 
 ```bash
-$ git clone git@git.generalassemb.ly:ga-wdi-exercises/react-counters.git
+$ git clone https://git.generalassemb.ly/ga-wdi-exercises/react-counters
 $ cd react-counters
 $ npm install
 $ npm start
@@ -340,8 +340,6 @@ class Counter extends Component {
 +      count: 0
 +    };
 +
-+    this.increaseCount = this.increaseCount.bind(this);
-+    this.decreaseCount = this.decreaseCount.bind(this);
 +  }
 
   render() {
@@ -356,7 +354,7 @@ class Counter extends Component {
     );
   }
 
-+  increaseCount() {
++  increaseCount = () => {
 +    let count = this.state.count + 1;
 +
 +    this.setState({
@@ -364,7 +362,7 @@ class Counter extends Component {
 +    });
 +  }
 +
-+  decreaseCount() {
++  decreaseCount = () => {
 +    let count = this.state.count - 1;
 +
 +    this.setState({
