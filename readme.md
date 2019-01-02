@@ -72,7 +72,7 @@ Here we are passing values, `"Nick"` and `24` into our first `Hello` component i
 
 ## State
 
-The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Your project 1s all tracked some state, regardless of which game you built:
+The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Just think about if you were to develop a game. Here are some examples:
 
 * **Trivia**: what is the current score, what card is currently displayed to the user, is the user's input correct or incorrect?
 * **Simon**: what order of buttons did the user push, what is the order of buttons they were supposed to push, what round or level are they on?
