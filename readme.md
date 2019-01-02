@@ -72,7 +72,7 @@ Here we are passing values, `"Nick"` and `24` into our first `Hello` component i
 
 ## State
 
-The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Your project 1s all tracked some state, regardless of which game you built:
+The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Just think about if you were to develop a game. Here are some examples:
 
 * **Trivia**: what is the current score, what card is currently displayed to the user, is the user's input correct or incorrect?
 * **Simon**: what order of buttons did the user push, what is the order of buttons they were supposed to push, what round or level are they on?
@@ -110,13 +110,190 @@ Before moving on to build our application, it's worth mentioning another aspect 
 
 Our UI gets updated when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
 
+## Let's build something together.
+
+Together we are going to grow our blog application with state and props! Yay!
+
+```bash
+git clone git@git.generalassemb.ly:sf-wdi-49/react-state-and-props.git
+cd react-state-and-props/blog-app
+npm install
+npm start
+```
+You should be greeted with a Hello message. 
+
+Now let's install a handy tool. [React Dev Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+
+At the moment we will see our greeting component inside of google chrome's development tools under the React tab. (We can even see our props/state!)
+
+Now let's create a new folder components and create 2 new components (Post and Comment) inside that folder.
+
+Your structure should look like this:
+
+```
+blog-app
+├──  favicon.ico
+├──  public
+├──  node_modules
+├──  package.json
+└──  src
+    ├──  components
+          └──  Comment.js
+          └──  Post.js
+    ├──  App.css
+    ├──  App.js
+    ├──  index.css
+    ├──  index.js
+    └──  logo.svg
+
+```
+
+Let's throw some info into those files! 
+
+**Post.js**
+```js
+import React, { Component } from 'react';
+// Load in Comment component
+import Comment from './Comment.js'
+
+class Post extends Component {
+    render() {
+      let comments = this.props.comments.map((comment, index) => (
+        <Comment message={comment} key={index}/>
+      ))
+      return(
+        <div className='post-page'>
+          <h1>{this.props.title}</h1>
+          <h2>By {this.props.author}</h2>
+          <p>{this.props.body}</p>
+          <h3>Comments</h3>
+          {comments}
+        </div>
+      )
+    }
+  }
+
+export default Post;
+```
+
+Let's break down the above code. We created a Post component that takes in the props: title, author, body, and an array of comments. For each comment inside of *this.props.comments* it will create a Comment component. Since this file requires the Comment component let's update that next. 
+
+```js
+import React, {Component} from 'react'
+
+class Comment extends Component {
+  render () {
+    return (
+      <div>
+        <p>{this.props.message}</p>
+      </div>
+    )
+  }
+}
+
+export default Comment
+```
+Awesome! Now to update our index.js to render out the Post Component.
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Post from './components/Post'
+import './App.css'
+
+ReactDOM.render(
+  <Post className='post' title={'A Day in the Life of React Development.'} author={'Disgruntled Dev'} body={'COMPONENTS EVERYWHERE!! AHHHHH!!'} comments={['Some shaddy internet comment.','A rare comment with actual feedback.']}/>,
+  document.getElementById('root')
+)
+```
+
+As you can see we are rendering a Post component with the props that we defined earlier.
+
+You should see this now: 
+
+![example react one](./images/blog-app1.png)
+
+So far we have dealt with only props to pass information from one component to another. But, what if we wanted data to change within a component? Time for State! 
+
+As an example we will be adding "Karma" to our comments. (This will make sense in a moment I promise.)
+
+Let's set state inside of our comments. 
+
+```js
+import React, {Component} from 'react'
+
+class Comment extends Component {
+  state = {
+    karma: 'good'
+  };
+
+  render () {
+    return (
+      <div className={this.state.karma}>
+        <p>{this.props.message}</p>
+      </div>
+    )
+  }
+}
+
+export default Comment
+```
+Inside our dev tools we will now see that by default we have set the state of karma to 'good' for all comments. We also used this state to declare a classname attached to our comment component. Now that we have a set state we can now create a method built into our component to update the state.
+
+We will be creating a ChangeKarma method to update our state and a button that will call the method. Simply the function checks the state and toggles it depending on what it is.
+
+```js
+import React, {Component} from 'react'
+
+class Comment extends Component {
+  state = {
+    karma: 'good'
+  };
+
+  changeKarma(){
+    if (this.state.karma === 'good'){
+      this.setState({
+        karma: 'bad'
+      })
+    } else {
+      this.setState({
+        karma: 'good'
+      })
+    }
+  }
+
+  render () {
+    return (
+      <div className={this.state.karma}>
+        <p>{this.props.message}</p>
+        <button className={"button"} onClick={this.changeKarma}>Change Karma</button>
+      </div>
+    )
+  }
+}
+
+export default Comment
+```
+
+So onClick the button will run the method changeKarma. BUT WAIT! It errors! Because of the fact that this method is created inside of a constructor we have to bind it to the component so *this* keyword will work correctly. 
+
+```js
+  state = {
+    karma: 'good'
+  };
+  changeKarma = this.changeKarma.bind(this);
+```
+Amazing!  Now when we click on our button the class attached to the component is switched without having to refresh the page. 
+
+**What other type of states can we add?**
+
 ## Check for Understanding
 
 * What is the difference between `state` and `props`?
 * What do we use `props` for?
 * What do we use `state` for?
 
-We've done a fair amount of framing so far, so let's dive in to building our application!
+We've done a fair amount of framing so far, so let's dive in to building another application!
 
 ## Exercise: React Counters
 
