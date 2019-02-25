@@ -115,7 +115,7 @@ Our UI gets updated when state changes. The user takes some action, like submitt
 Together we are going to grow our blog application with state and props! Yay!
 
 ```bash
-git clone git@git.generalassemb.ly:sf-wdi-49/react-state-and-props.git
+git clone git@git.generalassemb.ly:sf-wdi-51/react-state-and-props.git
 cd react-state-and-props/blog-app
 npm install
 npm start
