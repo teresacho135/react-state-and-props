@@ -510,14 +510,9 @@ Lets update the `Counter` component so that it is using state to track the count
 import React, { Component } from "react";
 
 class Counter extends Component {
-+  constructor() {
-+    super();
-+
-+    this.state = {
++    state = {
 +      count: 0
-+    };
-+
-+  }
++    };	
 
   render() {
     return (
