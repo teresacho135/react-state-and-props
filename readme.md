@@ -29,6 +29,8 @@ Think back to F.I.R.S.T. principles of components. Components are:
 
 We design components to do as little as possible (*small*, *focused*) with a minimal amount of dependence on other components (*independence*, *reusable*).
 
+## Props
+
 While components should be independent, we still need them to talk to each other by passing data. However, to keep components small and focused, we pass only the data that is *specific to that component's purpose*. Data that is passed into one component by a parent component (or the application root), we refer to as `props`.
 
 Let's take another look at our `Hello` component.
